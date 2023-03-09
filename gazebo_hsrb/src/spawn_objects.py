@@ -32,8 +32,7 @@ import math
 import numpy as np
 from scipy.spatial.distance import pdist
 import argparse
-import rclpy
-from rclpy.node import Node
+import rospy
 import sys
 import os
 import time
@@ -263,8 +262,7 @@ task1_places_choice = [
 
 
 if __name__ == '__main__':
-    rclpy.init()
-    node = spawn_objects()
+    #node = spawn_objects()
     parser = argparse.ArgumentParser(
         description='Drop objects to the WRS field.')
     parser.add_argument('--seed', nargs='?', type=int, default=False,
@@ -282,7 +280,7 @@ if __name__ == '__main__':
         random.seed(args.seed)
         np.random.seed(args.seed)
 
-    #rospy.init_node('spawn_objects')
+    rospy.init_node('spawn_objects')
     # drop 6 items from each category (1 is unknown in the actual competition)
     place_items = []
     for i in range(len(task1_places)):
@@ -329,6 +327,5 @@ if __name__ == '__main__':
             name = s['items'][(cnt - 1) % len(s['items'])]
             drop_object('task2_{0}_{1}'.format(cnt, name), name, X[j][0], X[j][1], place[0][2], yaw)
             cnt += 1
-    rclpy.shutdown()
-
-   # rospy.loginfo('Spawn finished')
+    #rclpy.shutdown()
+    rospy.loginfo('Spawn finished')
