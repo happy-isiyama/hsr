@@ -2,9 +2,11 @@
 <launch>
   <arg name="robot_name" default="$(optenv ROBOT_NAME hsrb)" />
   <include file="$(find hsrb_gazebo_launch)/launch/include/hsrb_gazebo_common.xml" pass_all_args="true" >
-	  <arg name="map" value="/home/demulab/catkin_ws/src/hsr/gazebo_hsrb/map/rcap_2023.yaml" />
-	  <arg name="world_name" value="/home/demulab/catkin_ws/src/hsr/gazebo_hsrb/world/rcap_2023.world" />
+	  <arg name="map" value="/home/demulab/dspl_ws/src/hsr/gazebo_hsrb/maps/map.yaml" />
+	  <arg name="world_name" value="/home/demulab/dspl_ws/src/hsr/gazebo_hsrb/worlds/wrs2020.world.xacro" />
+	  <param name="world" command="$(find xacro)/xacro $(arg world_name) --inorder" />
 	  <arg name="robot_pos" value="-x 0 -y 0 -z 0 -Y 0" />
 	  <arg name="use_laser_odom" value="false" />
   </include>
+  <!--node pkg="gazebo_hsrb" type="spawn_objects" name="spawn_objects" output="screen" /-->
 </launch>
