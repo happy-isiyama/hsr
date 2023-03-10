@@ -1,7 +1,7 @@
 # hsr
 
 [マニュアル(esa)](https://demulab.esa.io/posts/235)
-## サンプルプログラムのimport
+## サンプルプログラムのimport(hsr.ioに登録したメアドとパスワードが必要)
 ```
  git clone https://git.hsr.io/tmc/hsrb_samples.git
 ```
