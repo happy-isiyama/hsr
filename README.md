@@ -51,3 +51,4 @@ cd detectron2_ros
 git pull --all
 git submodule update --init
 ```
+https://github.com/Hibikino-Musashi-Home/hma_wrs_sim_ws
