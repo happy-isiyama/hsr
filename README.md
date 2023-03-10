@@ -2,10 +2,22 @@
 
 [マニュアル(esa)](https://demulab.esa.io/posts/235)
 ## サンプルプログラムのimport
+(hsr.ioに登録したメアドとパスワードが必要)
 ```
  git clone https://git.hsr.io/tmc/hsrb_samples.git
 ```
 
+## YOLO
+```
+cd ~/dspl_ws/src/hsr
+mkdir darknet
+cd darknet
+git clone https://git.hsr.io/tmc/tmc_darknet.git
+git clone https://git.hsr.io/tmc/tmc_darknet_ros.git
+git clone https://git.hsr.io/tmc/hsrb_tk1_tutorials.git
+cd ../../../
+catkin build
+```
 
 # Downloading the detctoron2_ros
 1.Install python Virtual Environment
@@ -39,3 +51,4 @@ cd detectron2_ros
 git pull --all
 git submodule update --init
 ```
+https://github.com/Hibikino-Musashi-Home/hma_wrs_sim_ws
