@@ -55,7 +55,7 @@ class NaviCoordServer():
                 pass
 
 if __name__ == '__main__':
-    rospy.init_node('navi_coord_server')
+    rospy.init_node('navi_coord_server', anonymous=True)
     try:
         sls = NaviCoordServer()
         rospy.spin()
