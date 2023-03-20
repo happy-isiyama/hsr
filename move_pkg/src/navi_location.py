@@ -12,9 +12,9 @@ import actionlib
 from std_msgs.msg import String, Float64
 from std_srvs.srv import Empty
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-sys.path.append('/home/administrator/dspl_ws/src/hsr/move_pkg/srv')
+sys.path.append('/home/kohei/dspl_ws/src/hsr/move_pkg/srv')
 print(sys.path)
-from move_pkg.srv import NaviLocation, MaviLocationResponse 
+from move_pkg.srv import NaviLocation, NaviLocationResponse 
 
 class NaviLocationServer():
     def __init__(self):
@@ -34,7 +34,7 @@ class NaviLocationServer():
     def searchLocationName(self, srv_req):
         if srv_req.location_name in self.location_dict:
             self.location_name = srv_req.location_name
-            print self.location_dict[self.location_name]
+            #print self.location_dict[self.location_name]
             return self.sendGoal(self.location_dict[self.location_name])
         else:
             rospy.logerr("<" + srv_req.location_name + "> doesn't exist.")
