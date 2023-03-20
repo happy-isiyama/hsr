@@ -62,64 +62,21 @@ class Arm():
         gripper.command(1.0)
         sys.exit()
 
-    def instance_desk(self,object_name):
-        topic_tf = object_name
-        object_to_hand = geometry.pose(z=0, ek=-1.57)
 
-        # handを0.1[m]上に移動させる姿勢
-        hand_up = geometry.pose(x=0.1)
-        # handを0.5[m]手前に移動させる姿勢
-        hand_back = geometry.pose(z=-0.5)
-
-        gripper.command(1.0)
-        whole_body.move_to_neutral()
-        whole_body.looking_hand_constraint = True
-        rospy.sleep(3.0)
-        listener = tf.TransformListener()
-        print(listener)
-
-        whole_body.move_end_effector_pose(object_to_hand, topic_tf)
-        # 力を指定して把持する
-        gripper.apply_force(_GRASP_FORCE)
-        # シミュレータのgrasp hackのための待ち時間。実機では不要
-        rospy.sleep(2.0)
-        # 手先相対で上にハンドを移動
-        whole_body.move_end_effector_pose(hand_up, _HAND_TF)
-        # 手先相対で後ろにハンドを移動
-        whole_body.move_end_effector_pose(hand_back, _HAND_TF)
-        # 初期姿勢に遷移
-        whole_body.move_to_neutral()
-        tts.say('把持に成功しました')
-        gripper.command(1.0)
-        sys.exit()
-        
-    def instance_desk(self,object_name):
-        topic_tf = object_name
-        object_to_hand = geometry.pose(z=0, ek=-1.57)
-        
-        # handを0.1[m]上に移動させる姿勢
-        hand_up = geometry.pose(x=0.1)
-        # handを0.5[m]手前に移動させる姿勢
-        hand_back = geometry.pose(z=-0.5)
-
-        gripper.command(1.0)
-        whole_body.move_to_neutral()
-        whole_body.looking_hand_constraint = True
     def instance_floor(self,object_name):
         topic_tf = object_name
-        object_to_hand = geometry.pose(x=-0.02, ek=-1.57)
-
+        object_to_hand = geometry.pose(ei=-1.57)
         # handを0.1[m]上に移動させる姿勢
-        hand_up = geometry.pose(x=0.1)
-        # handを0.5[m]手前に移動させる姿勢
-        hand_back = geometry.pose(z=-0.5)
+        hand_up = geometry.pose(z=-0.1)
 
         gripper.command(1.0)
         whole_body.move_to_neutral()
         whole_body.looking_hand_constraint = True
-        whole_body.gaze_point(point=geometry.Vector3(x=1.0,y=0,z=0.5), ref_frame_id='base_link')
+        rospy.sleep(5.0)
+        whole_body.gaze_point(point=geometry.Vector3(y=0, x=0.8, z=0.5), ref_frame_id='base_link')
         self.listener.waitForTransform("head_rgbd_sensor_rgb_frame", topic_tf, rospy.Time(), rospy.Duration(4.0))
         whole_body.move_end_effector_pose(object_to_hand, topic_tf)
+        rospy.sleep(2.0)
         # 力を指定して把持する
         gripper.apply_force(_GRASP_FORCE)
         # シミュレータのgrasp hackのための待ち時間。実機では不要
@@ -127,7 +84,6 @@ class Arm():
         # 手先相対で上にハンドを移動
         whole_body.move_end_effector_pose(hand_up, _HAND_TF)
         # 手先相対で後ろにハンドを移動
-        whole_body.move_end_effector_pose(hand_back, _HAND_TF)
         # 初期姿勢に遷移
         whole_body.move_to_neutral()
         tts.say('把持に成功しました')
@@ -150,6 +106,40 @@ class Arm():
         rospy.sleep(1.0)
         omni_base.go_rel(-0.2, 0.0, 0.0, 100.0)
         whole_body.move_to_neutral()
+
+
+
+    def instance_desk(self,object_name):
+        topic_tf = object_name
+        object_to_hand = geometry.pose(z=-0.1, ek=-1.57)
+
+        # handを0.1[m]上に移動させる姿勢
+        hand_push = geometry.pose(z=0.1)
+        hand_up = geometry.pose(x=0.1)
+        # handを0.5[m]手前に移動させる姿勢
+        hand_back = geometry.pose(z=-0.5)
+
+        gripper.command(1.0)
+        whole_body.move_to_neutral()
+        whole_body.looking_hand_constraint = True
+        whole_body.gaze_point(point=geometry.Vector3(x=1.0,y=0,z=0.5), ref_frame_id='base_link')
+        self.listener.waitForTransform("head_rgbd_sensor_rgb_frame", topic_tf, rospy.Time(), rospy.Duration(4.0))
+        rospy.sleep(3.0)
+        whole_body.move_end_effector_pose(object_to_hand, topic_tf)
+        # 力を指定して把持する
+        whole_body.move_end_effector_pose(hand_push, _HAND_TF)
+        gripper.apply_force(_GRASP_FORCE)
+        # シミュレータのgrasp hackのための待ち時間。実機では不要
+        rospy.sleep(2.0)
+        # 手先相対で上にハンドを移動
+        whole_body.move_end_effector_pose(hand_up, _HAND_TF)
+        # 手先相対で後ろにハンドを移動
+        whole_body.move_end_effector_pose(hand_back, _HAND_TF)
+        # 初期姿勢に遷移
+        whole_body.move_to_neutral()
+        tts.say('把持に成功しました')
+        gripper.command(1.0)
+        sys.exit()
 
     def ar_floor(self,ar):
         topic_tf = 'ar_marker/' + ar
@@ -192,9 +182,9 @@ class Arm():
 
 if __name__=='__main__':
     arm = Arm()
-    arm.instance_floor("bottle")
     #whole_body.gaze_point(point=geometry.Vector3(x=1.0,y=0,z=0.5), ref_frame_id='base_link')
     #omni_base.go_pose(geometry.pose(z=-0.5, ei=3.14, ej=-1.57), 100.0, ref_frame_id='bottle')
     #arm.grasp_object("bottle")
-   # arm.instance_floor('bottle')
-    arm.place_object()
+    #arm.instance_desk('bottle')
+    arm.instance_floor("bottle")
+    #arm.place_object()
