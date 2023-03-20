@@ -11,7 +11,7 @@ gui_publish_rate: 10.0
 laser_max_beams: 60
 laser_max_range: 60.0
 min_particles: 500
-max_particles: 20000
+max_particles: 750
 kld_err: 0.05
 kld_z: 0.99
 odom_alpha1: 5.0
