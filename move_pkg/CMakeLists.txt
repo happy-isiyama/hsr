@@ -17,6 +17,10 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   tf
   geometry_msgs
+  amcl
+  dwa_local_planner
+  map_server
+  move_base
 )
 
 ## System dependencies are found with CMake's conventions
