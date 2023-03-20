@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # cooding: utf-8
 
 #os
@@ -23,6 +23,8 @@ from function import *
 
 def main():
     op=OpenPose()
-    print(op)
+    rospy.sleep(1)
+    a=op.humankamo()
+    print(a)
 if __name__ == "__main__":
     main()
