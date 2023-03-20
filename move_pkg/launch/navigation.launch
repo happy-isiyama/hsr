@@ -1,7 +1,0 @@
-<launch>
-    <arg name="map_file"/>
-    <!-- Run Map Server -->
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find move_pkg)/map/map.yaml"/>
-
-   <include file="$(find move_pkg)/launch/config/navigation.launch" /> 
-</launch>
