@@ -102,11 +102,9 @@ class Arm():
         # handを0.5[m]手前に移動させる姿勢
         hand_back = geometry.pose(z=-0.5)
 
-<<<<<<< HEAD
         gripper.command(1.0)
         whole_body.move_to_neutral()
         whole_body.looking_hand_constraint = True
-=======
     def instance_floor(self,object_name):
         topic_tf = object_name
         object_to_hand = geometry.pose(x=-0.02, ek=-1.57)
@@ -121,7 +119,6 @@ class Arm():
         whole_body.looking_hand_constraint = True
         whole_body.gaze_point(point=geometry.Vector3(x=1.0,y=0,z=0.5), ref_frame_id='base_link')
         self.listener.waitForTransform("head_rgbd_sensor_rgb_frame", topic_tf, rospy.Time(), rospy.Duration(4.0))
->>>>>>> d899c687594b0eca05060bbfc1cf9c441e02a4a0
         whole_body.move_end_effector_pose(object_to_hand, topic_tf)
         # 力を指定して把持する
         gripper.apply_force(_GRASP_FORCE)
@@ -136,8 +133,6 @@ class Arm():
         tts.say('把持に成功しました')
         gripper.command(1.0)
         sys.exit()
-<<<<<<< HEAD
-=======
 
     def place_object(self):
         whole_body.move_to_neutral()
@@ -155,11 +150,6 @@ class Arm():
         rospy.sleep(1.0)
         omni_base.go_rel(-0.2, 0.0, 0.0, 100.0)
         whole_body.move_to_neutral()
-
-
-
-
->>>>>>> d899c687594b0eca05060bbfc1cf9c441e02a4a0
 
     def ar_floor(self,ar):
         topic_tf = 'ar_marker/' + ar
@@ -202,12 +192,9 @@ class Arm():
 
 if __name__=='__main__':
     arm = Arm()
-<<<<<<< HEAD
     arm.instance_floor("bottle")
-=======
     #whole_body.gaze_point(point=geometry.Vector3(x=1.0,y=0,z=0.5), ref_frame_id='base_link')
     #omni_base.go_pose(geometry.pose(z=-0.5, ei=3.14, ej=-1.57), 100.0, ref_frame_id='bottle')
     #arm.grasp_object("bottle")
    # arm.instance_floor('bottle')
     arm.place_object()
->>>>>>> d899c687594b0eca05060bbfc1cf9c441e02a4a0
