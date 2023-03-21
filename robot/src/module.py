@@ -25,6 +25,10 @@ from src.body import Body
 from src.hand import Hand 
 from cv_bridge import CvBridge
 
+<<<<<<< HEAD
+import hsrb_interface
+=======
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 import geometry_msgs.msg
 from geometry_msgs.msg import PoseStamped
 import tf2_ros
@@ -38,6 +42,10 @@ _GRASP_FORCE=0.2
 #_BOTTLE_TF='ar_marker/201'
 # グリッパのtf名
 _HAND_TF='hand_palm_link'
+<<<<<<< HEAD
+
+=======
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 # ロボット機能を使うための準備
 robot = hsrb_interface.Robot()
 omni_base = robot.get('omni_base')
@@ -46,7 +54,10 @@ gripper = robot.get('gripper')
 tts = robot.get('default_tts')
 
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 class Arm():
     def __init__(self):
         self.listener = tf.TransformListener()
@@ -129,7 +140,11 @@ class Arm():
         tts.say('把持に成功しました')
         gripper.command(1.0)
         sys.exit()
+<<<<<<< HEAD
+ 
+=======
         
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
     def instance_shelf(self,object_name):
         topic_tf = object_name
         object_to_hand = geometry.pose(z=-0.1, ek=-1.57)
@@ -164,6 +179,11 @@ class Arm():
         gripper.command(1.0)
         sys.exit()
 
+<<<<<<< HEAD
+
+
+=======
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 #humanposr src start
 class OpenPose():
     def __init__(self):
@@ -177,17 +197,6 @@ class OpenPose():
         
 
     def callback(self,msg):
-        #body_estimation = Body('/home/demulab/dspl_ws/src/hsr/humanpose/src/pytorch-openpose/model/body_pose_model.pth')
-        #hand_estimation = Hand('/home/demulab/dspl_ws/src/hsr/humanpose/src/pytorch-openpose/model/hand_pose_model.pth')
-
-        #print(f"Torch device: {torch.cuda.get_device_name()}")
-#rospy.init_node("subscriber")
-#rospy.Subscriber("/hsrb/head_rgbd_sensor/rgb/image_rect_color",Image,callback)
-    #cap = cv2.VideoCapture(0)
-    #cap.set(3, 640)
-    #cap.set(4, 480)
-
-    #ret, oriImg = cap.read()
         bridge = CvBridge()
         self.oriImg = bridge.imgmsg_to_cv2(msg)
 
@@ -221,7 +230,10 @@ class OpenPose():
         while self.msgLR == "false":
             rospy.sleep(1.0)
         return self.msgLR
+<<<<<<< HEAD
+=======
 #humanpose src end
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 
 
 

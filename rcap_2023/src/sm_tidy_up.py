@@ -17,6 +17,8 @@ from hsrb_interface import Robot
 #from module import *
 #from function import *
 
+robot = hsrb_interface.Robot()
+omni_base = robot.get('omni_base')
 
 class EnterRoom(smach.State):
     def __init__(self):
@@ -34,8 +36,8 @@ class TaskA(smach.State):
 
     def execute(self,userdata):
         rospy.loginfo("----------------Task A--------------------")
-        omni_base.go_abs(2.4435990175, 0.2461424994, 0.6298248369, 300.0) #Table_b
-        omni_base.go_abs(2.4793845126, -0.6980658831, 1.5002928018, 300.0) #Table 1
+        omni_base.go_abs(2.380020627581534, 1.056500281377312, 0.02266108632762348, 300.0) #Table_b
+        omni_base.go_abs(1.595966813767852, 1.2583708350487552, -3.120435860989875, 300.0) #Table 1
         return "to_task2A"
 
 class Task2A(smach.State):
@@ -44,8 +46,8 @@ class Task2A(smach.State):
 
     def execute(self,userdata):
         rospy.loginfo("----------------Task 2A--------------------")
-        omni_base.go_abs(2.3831604950, -0.0000165905, -0.0105738366, 300.0) #waypoint1
-        omni_base.go_abs(2.6559186638, -0.0162398292, -0.0356263708, 300.0) #waypoint2
+        omni_base.go_abs(2.439885828485936, 0.12257944264739871, 0.0452156824171235, 300.0) #waypoint1
+        omni_base.go_abs(3.9091511519156223, 0.15497955104277086, 0.038638968574600786, 300.0) #waypoint2
         return "to_taskB"
 
 class TaskB(smach.State):
@@ -54,12 +56,10 @@ class TaskB(smach.State):
 
     def execute(self,userdata):
         rospy.loginfo("----------------Task B--------------------")
-        omni_base.go_abs(2.7167162771, 0.0602892998, 0.3325988124, 300.0) #shelf
-        omni_base.go_abs(2.7835146149, -0.1906639474, 0.5368062753, 300.0) #human_center
-        if human == left: #仮の条件分岐 手を上げてる人
-            omni_base.go_abs(2.7351899836, -0.1230322638, 0.9608355728, 300.0) #human_left
-        else:
-            omni_base.go_abs(2.8110376842, -0.1302287473, 0.7915451677, 300.0) #human_right
+        omni_base.go_abs(4.4331769989766485, 1.0486846497559235, 0.03786785857847326, 300.0) #shelf
+        omni_base.go_abs(4.63224620012862, 1.4850550571247705, 1.609544631220165, 300.0) #human_center
+        omni_base.go_abs(4.022050393438807, 2.2987666211105346, 1.6000028501606836, 300.0) #human_left
+        omni_base.go_abs(5.053066552752714, 2.347473880985127, 1.5918783317735565, 300.0) #human_right
         return "finish"
 
 
@@ -87,5 +87,5 @@ def main():
 
 
 if __name__ =='__main__':
-    rospy.init_node('sm_tidy_up')
+    #rospy.init_node('sm_tidy_up')
     main()

@@ -28,7 +28,10 @@ def main():
     #print(a)
     arm = Arm()
     arm.place_object()
+<<<<<<< HEAD
+=======
 
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 if __name__ == "__main__":
     rospy.init_node("debug")
     main()
