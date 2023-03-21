@@ -70,7 +70,8 @@ class Arm():
         hand_up = geometry.pose(z=-0.1)
 
         gripper.command(1.0)
-        whole_body.move_to_neutral()
+        rospy.sleep(1.0)
+        whole_body.move_to_go()
         whole_body.looking_hand_constraint = True
         rospy.sleep(5.0)
         whole_body.gaze_point(point=geometry.Vector3(y=0, x=0.8, z=0.5), ref_frame_id='base_link')
