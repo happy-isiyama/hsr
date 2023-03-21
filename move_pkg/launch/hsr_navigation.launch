@@ -1,0 +1,10 @@
+<launch>
+    <include file="$(find move_pkg)/launch/base.launch"/>
+    <arg name="map_file"/>
+    <!-- Run Map Server -->
+    <!-- <rosparam ns="/location" command="load" file="$(find move_pkg)/location/test3.yaml" /> -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find move_pkg)/map/map.yaml"/>
+    
+    <include file="$(find move_pkg)/launch/config/navigation.launch" />
+    <!-- <include file="$(find move_pkg)/launch/config/navi.launch" /> -->
+</launch>

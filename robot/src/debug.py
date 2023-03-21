@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # cooding: utf-8
 
 #os
@@ -17,6 +17,14 @@ from hsrb_interface import geometry
 from hsrb_interface import Robot
 
 #import my pkg
-sys.path.append('/home/demulab/catkin_ws/src/hsr/robot/src')
+sys.path.append('/home/demulab/dspl_ws/src/hsr/robot/src')
 from module import *
 from function import *
+
+def main():
+    op=OpenPose()
+    rospy.sleep(1)
+    a=op.humankamo()
+    print(a)
+if __name__ == "__main__":
+    main()
