@@ -99,6 +99,12 @@ class Arm():
         whole_body.move_to_joint_positions({'arm_lift_joint': 0.4})
         rospy.sleep(1.0)
         whole_body.linear_weight = 100
+<<<<<<< HEAD
+=======
+        rospy.sleep(1.0)
+        whole_body.move_end_effector_by_line((0, 0, 1), 0.2)
+        #omni_base.go_abs(0,0,0)
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
         rospy.sleep(1.0)
         whole_body.move_end_effector_by_line((0, 0, 1), 0.2)
         #whole_body.linear_weight = 1.0
@@ -227,5 +233,9 @@ if __name__=='__main__':
     #omni_base.go_pose(geometry.pose(z=-0.5, ei=3.14, ej=-1.57), 100.0, ref_frame_id='bottle')
     #arm.grasp_object("bottle")
     #arm.instance_desk('bottle')
+<<<<<<< HEAD
     #arm.instance_shelf("bottle")
+=======
+   # arm.instance_floor("bottle")
+>>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
     arm.place_object()
