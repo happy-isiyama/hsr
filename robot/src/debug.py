@@ -22,9 +22,11 @@ from module import *
 from function import *
 
 def main():
-    op=OpenPose()
-    rospy.sleep(1)
-    a=op.humankamo()
-    print(a)
+    #op=OpenPose()
+    #rospy.sleep(1)
+    #a=op.humankamo()
+    #print(a)
+    arm = Arm()
+    arm.place_object()
 if __name__ == "__main__":
     main()

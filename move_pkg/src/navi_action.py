@@ -13,7 +13,7 @@ import time
 from std_msgs.msg import String, Float64
 from std_srvs.srv import Empty
 from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
-sys.path.append('/home/kohei/dspl_ws/src/hsr/move_pkg/srv')
+sys.path.append('/home/administrator/dspl_ws/src/hsr/move_pkg/srv')
 print(sys.path)
 from move_pkg.srv import NaviLocation, NaviLocationResponse
 
