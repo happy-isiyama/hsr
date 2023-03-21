@@ -4,17 +4,17 @@
 # Title: 目的地の名前と座標を設定するサービスサーバー
 # Author: 
 #-----------------------------------------------------------
-import controller_manager_msgs.srv
+#import controller_manager_msgs.srv
 import rospy
-import trajectory_msgs.msg
-import math
-import actionlib
+#import trajectory_msgs.msg
+#import math
+#import actionlib
 import tf
-from actionlib_msgs.msg import GoalStatus
-from geometry_msgs.msg import Point, PoseStamped, Quaternion
-from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
+#from actionlib_msgs.msg import GoalStatus
+#from geometry_msgs.msg import Point, PoseStamped, Quaternion
+#from move_base_msgs.msg import MoveBaseAction, MoveBaseGoal
 import rospy
-import tf.transformations
+#import tf.transformations
 import hsrb_interface
 from hsrb_interface import Robot
 
