@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+
+    <!-- args -->
+    <!--arg name="gui" default="true" /-->
+    <arg name="robot" default="hsrb4s" />
+
+    <!-- load robot -->
+    <param name="robot_description" command="$(find xacro)/xacro '$(find description)/robots/$(arg robot).urdf.xacro'" />
+    <!--node if="$(arg gui)" name="joint_state_publisher_gui" pkg="joint_state_publisher_gui" type="joint_state_publisher_gui" /-->
+    <!--node unless="$(arg gui)" name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" /-->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- load displays -->
+    <!--node name="rviz" pkg="rviz" type="rviz" args="-d $(find description)/launch/hsrb_display.rviz"/-->
+
+</launch>

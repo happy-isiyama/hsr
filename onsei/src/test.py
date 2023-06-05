@@ -1,0 +1,55 @@
+import pyaudio
+import speech_recognition as sr
+
+def record_audio():
+    # オーディオの設定
+    chunk = 1024  # フレームサイズ
+    sample_format = pyaudio.paInt16  # 16 bit
+    channels = 1  # モノラル
+    fs = 16000  # サンプリング周波数
+    seconds = 5  # 記録時間
+    
+    p = pyaudio.PyAudio()  # PyAudioオブジェクトを作成する
+    
+    # マイクからのストリームを開く
+    stream = p.open(format=sample_format,
+                    channels=channels,
+                    rate=fs,
+                    frames_per_buffer=chunk,
+                    input=True)
+    
+    frames = []  # マイクからの音声を保持するためのフレームのリスト
+    
+    # 指定した秒数だけマイクからの音声を録音する
+    for i in range(0, int(fs / chunk * seconds)):
+        data = stream.read(chunk)
+        frames.append(data)
+    
+    # マイクからのストリームを停止し、PyAudioオブジェクトを終了する
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+    
+    # 音声を認識して文字列に変換する
+    audio = sr.AudioData(b''.join(frames), sample_rate=fs, sample_width=2)
+    r = sr.Recognizer()
+    try:
+        text = r.recognize_sphinx(audio)
+    except sr.UnknownValueError:
+        text = "音声が認識できませんでした"
+    except sr.RequestError as e:
+        text = "認識リクエストが失敗しました: {}".format(e)
+    
+    # 認識したテキストを返す
+    return text
+
+# テスト用コード
+if __name__ == '__main__':
+    text = record_audio()
+    print("認識したテキスト:", text)
+    if text == "yes":
+        print("Go")
+    elif text == "no":
+        print("stop")
+    else:
+        print("else")

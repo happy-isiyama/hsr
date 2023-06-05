@@ -18,20 +18,36 @@ from hsrb_interface import Robot
 
 #import my pkg
 sys.path.append('/home/demulab/dspl_ws/src/hsr/robot/src')
-from module import *
+from humanmodule import *
 from function import *
+from audiomodule import *
+from manipulation import *
 
 def main():
-    #op=OpenPose()
-    #rospy.sleep(1)
-    #a=op.humankamo()
-    #print(a)
-    arm = Arm()
-    arm.place_object()
-<<<<<<< HEAD
-=======
+    whole_body = robot.get('whole_body')
+    omni_base = robot.get('omni_base')
 
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
+    whole_body.move_to_joint_positions({'head_tilt_joint':-1.0})
+#    arm = Arm()
+#    object_list = arm.take_list()
+#    print(omni_base.pose)
+#    if object_list != "no_object":
+#        arm.shelf_collision(object_list,pick_object,0.02,0.05,0.3)
+#        rospy.sleep(1.0)
+#        try:
+#            arm.instance_shelf(pick_object)
+#            rospy.sleep(1.0)
+#        except rospy.ROSInterruptException:
+#            print("error")
+#            pass
+ 
+        #op=OpenPose()
+        #print("init")
+        #rospy.sleep(1)
+        #a=op.human()
+        #print(a)
+    #arm = Arm()
+    #arm.place_object()
+        #ys = YesNo.voice_yseno()
 if __name__ == "__main__":
-    rospy.init_node("debug")
     main()
