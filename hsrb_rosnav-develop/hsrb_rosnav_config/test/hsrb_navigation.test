@@ -1,0 +1,26 @@
+<launch>
+  <arg name="gui" default="false"/>
+  <arg name="rviz" default="false"/>
+  <arg name="map_file" default="$(find hsrb_rosnav_config)/test/map.yaml"/>
+
+  <!-- gazebo simulation -->
+  <include file="$(find hsrb_rosnav_config)/test/test_gazebo.launch">
+    <env name="GAZEBO_MASTER_URI" value="http://localhost:11355"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="rviz" value="$(arg rviz)"/>
+    <arg name="fast_physics" value="false"/>
+  </include>
+
+  <!-- Map server -->
+  <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+  <!-- Localization -->
+  <include file="$(find hsrb_rosnav_config)/launch/include/amcl.launch.xml"/>
+
+  <!-- Move base conroller -->
+  <include file="$(find hsrb_rosnav_config)/launch/include/move_base.launch.xml"/>
+
+  <!-- Navigation test -->
+  <test test-name="test_hsrb_navigation" pkg="hsrb_rosnav_config" type="test_hsrb_navigation.py" time-limit="300" retry="0"/>
+
+</launch>

@@ -1,0 +1,7 @@
+<launch>
+  <!-- Start slam_karto -->
+  <node name="slam_karto" pkg="slam_karto" type="slam_karto">
+    <remap from="scan" to="hsrb/base_scan"/>
+  </node>
+
+</launch>

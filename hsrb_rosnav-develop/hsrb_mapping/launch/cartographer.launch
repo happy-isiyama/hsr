@@ -1,0 +1,27 @@
+<launch>
+  <arg name="use_bag" default="false"/>
+  <arg name="launch_rviz" default="true"/>
+  <arg name="launch_joy" default="true"/>
+
+  <!-- Specify the bag file -->
+  <arg name="bag_file" default="default.bag"/>
+
+  <!-- Play the bag file and use simulated clock -->
+  <include if="$(arg use_bag)" file="$(find hsrb_mapping)/launch/include/play_bag_file.launch.xml">
+    <arg name="bag_file" value="$(arg bag_file)"/>
+  </include>
+
+  <!-- Start Google Cartographer -->
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="-configuration_directory $(find hsrb_mapping)/config -configuration_basename hsrb.lua">
+  </node>
+
+  <!-- Rviz -->
+  <include if="$(arg launch_rviz)" file="$(find hsrb_mapping)/launch/rviz.launch"/>
+
+    <!-- teleop_joy -->
+  <include if="$(arg launch_joy)" file="$(find hsrb_mapping)/launch/teleop_joy.launch">
+    <arg name="with_rviz" value="false"/>
+  </include>
+
+</launch>

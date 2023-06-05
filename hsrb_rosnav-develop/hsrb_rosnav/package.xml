@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package>
+  <name>hsrb_rosnav</name>
+  <version>0.5.0</version>
+  <description>hsrb_rosnav meta package</description>
+  <maintainer email="kazuhito_tanaka@mail.toyota.co.jp">Kazuhito Tanaka</maintainer>
+  <license>HSR Software License for Community Software A</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <run_depend>hsrb_mapping</run_depend>
+  <run_depend>hsrb_rosnav_config</run_depend>
+  <export>
+    <metapackage/>
+  </export>
+</package>

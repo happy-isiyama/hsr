@@ -1,0 +1,16 @@
+<launch>
+  <arg name="bag_file"/>
+
+  <!-- Use simulated timestamp of the bag file -->
+  <param name="use_sim_time" value="true"/>
+
+  <!-- Load robot description -->
+  <param name="robot_description" command="$(find xacro)/xacro.py '$(find hsrb_description)/robots/hsrb4s.urdf.xacro'" />
+
+  <!-- Publish tf from joint_state -->
+  <node pkg="robot_state_publisher" type="state_publisher" name="robot_state_publisher"/>
+
+  <!-- Play rosbag -->
+  <node pkg="rosbag" type="play" name="player" args="--clock $(arg bag_file)"/>
+
+</launch>
