@@ -6,6 +6,7 @@ import rospy
 import sys
 from sensor_msgs.msg import Image
 from std_msgs.msg import String
+'''
 #import hsrb
 import hsrb_interface
 from hsrb_interface import geometry
@@ -24,16 +25,18 @@ from src import util
 from src.body import Body 
 from src.hand import Hand 
 from cv_bridge import CvBridge
-
-<<<<<<< HEAD
-import hsrb_interface
-=======
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
+'''
+'''
 import geometry_msgs.msg
 from geometry_msgs.msg import PoseStamped
 import tf2_ros
 import tf
-
+'''
+sys.path.append("/home/demulab/dspl/src/hsr/whisper/src")
+import pyaudio
+import wave
+import whisper
+'''
 # 移動のタイムアウト[s]
 _MOVE_TIMEOUT=60.0
 # 把持力[N]
@@ -42,22 +45,15 @@ _GRASP_FORCE=0.2
 #_BOTTLE_TF='ar_marker/201'
 # グリッパのtf名
 _HAND_TF='hand_palm_link'
-<<<<<<< HEAD
-
-=======
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
 # ロボット機能を使うための準備
 robot = hsrb_interface.Robot()
 omni_base = robot.get('omni_base')
 whole_body = robot.get('whole_body')
 gripper = robot.get('gripper')
 tts = robot.get('default_tts')
+'''
 
-
-<<<<<<< HEAD
-=======
-
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
+'''
 class Arm():
     def __init__(self):
         self.listener = tf.TransformListener()
@@ -140,11 +136,7 @@ class Arm():
         tts.say('把持に成功しました')
         gripper.command(1.0)
         sys.exit()
-<<<<<<< HEAD
- 
-=======
         
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
     def instance_shelf(self,object_name):
         topic_tf = object_name
         object_to_hand = geometry.pose(z=-0.1, ek=-1.57)
@@ -178,62 +170,200 @@ class Arm():
         tts.say('把持に成功しました')
         gripper.command(1.0)
         sys.exit()
+'''
 
-<<<<<<< HEAD
+#whisper yes or no
+
+class Yesno():
+     def __init__():
+         print("voice yes or no")
+         model = whisper.load_model("small.en")
+
+     def voiceyn():
+         model = whisper.load_model("small.en")
+         CHUNK = 1024
+         FORMAT = pyaudio.paInt16
+         CHANNELS = 1
+         RATE = 44100
+         RECORD_SECONDS = 5
+         WAVE_OUTPUT_FILENAME = "output.wav"
+
+         p = pyaudio.PyAudio()
+
+         stream = p.open(format = FORMAT,
+                    channels = CHANNELS,
+                    rate = RATE,
+                    input = True,
+                    #output = True,
+                    #input_device_index = 2,
+                    #output_device_index = 1,
+                    frames_per_buffer = CHUNK)
+
+         print("recording")
+
+         frames = []
+
+         for i in range(0,int(RATE / CHUNK * RECORD_SECONDS)):
+             d = stream.read(CHUNK)
+             frames.append(d)
+
+         print("done recording")
+
+         stream.stop_stream()
+         stream.close()
+         p.terminate()
+
+         wf = wave.open(WAVE_OUTPUT_FILENAME,'wb')
+         wf.setnchannels(CHANNELS)
+         wf.setsampwidth(p.get_sample_size(FORMAT))
+         wf.setframerate(RATE)
+         wf.writeframes(b''.join(frames))
+         wf.close()
+
+     def recognizeyn():
+         model = whisper.load_model("small.en")
+         word = "String"
+         audio = whisper.load_audio("output.wav")
+         audio = whisper.pad_or_trim(audio)
+         dictionary = ["yes","no","イエス","ノー","Yes","No"]
+         yesdic = ["Yes","yes","イエス"]
+         nodic = ["No","no","ノー"]
+
+         mel = whisper.log_mel_spectrogram(audio).to(model.device)
+
+         _,probs = model.detect_language(mel)
+         print(f"Detected language:{max(probs,key=probs.get)}")
+
+         options = whisper.DecodingOptions(fp16 = False)
+         result = whisper.decode(model, mel, options)
+         words = result.text.split()
+         matched_words = []
+         print(result.text)
+         '''
+         for word in words:
+             if word.lower() in dictionary:
+                 matched_words.append(word)
+
+         print("Match:",matched_words)
+         '''
+         #print(type(result.text))
+         if "Yes" in result.text:
+             text = "Yes"
+         elif "yes" in result.text:
+             text = "Yes"   
+         elif "No" in result.text:
+             text = "No"
+         elif "no" in result.text:
+             text = "No"
+         else:
+             text = "False"
+
+         return text
+     
+     def voicekamo():
+         text = String()
+         Yesno.voiceyn()
+         text = Yesno.recognizeyn()
+
+         return text
+
+#食品認識
+
+class food():
+     def __init__(self):
+         model = whisper.load_model("small")
+
+     def voicefd():
+         model = whisper.load_model("small")
+         CHUNK = 1024
+         FORMAT = pyaudio.paInt16
+         CHANNELS = 1
+         RATE = 44100
+         RECORD_SECONDS = 5
+         WAVE_OUTPUT_FILENAME = "output.wav"
+
+         p = pyaudio.PyAudio()
+
+         stream = p.open(format = FORMAT,
+                    channels = CHANNELS,
+                    rate = RATE,
+                    input = True,
+                    #output = True,
+                    #input_device_index = 2,
+                    #output_device_index = 1,
+                    frames_per_buffer = CHUNK)
+
+         print("recording")
+
+         frames = []
+
+         for i in range(0,int(RATE / CHUNK * RECORD_SECONDS)):
+             d = stream.read(CHUNK)
+             frames.append(d)
+
+         print("done recording")
+
+         stream.stop_stream()
+         stream.close()
+         p.terminate()
+
+         wf = wave.open(WAVE_OUTPUT_FILENAME,'wb')
+         wf.setnchannels(CHANNELS)
+         wf.setsampwidth(p.get_sample_size(FORMAT))
+         wf.setframerate(RATE)
+         wf.writeframes(b''.join(frames))
+         wf.close()
+
+     def recognizefd():
+         model = whisper.load_model("small")
+         foodlist = []
+         #foodtext = String()
+         word = "String"
+         audio = whisper.load_audio("output.wav")
+         audio = whisper.pad_or_trim(audio)
+         dictionary = ["cola","Cola","green tea","Green Tea","cup","Cup"]
 
 
-=======
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
-#humanposr src start
-class OpenPose():
-    def __init__(self):
-        print("openpose")
-        rospy.init_node("subscriber")
-        rospy.Subscriber("/hsrb/head_rgbd_sensor/rgb/image_rect_color",Image,self.callback)
-        self.pub = rospy.Publisher("human2LR",String,queue_size = 10)
-        self.msgLR = "false"
-        #rospy.sleep()
-        #self.oriImg = np.empty()
-        
+         mel = whisper.log_mel_spectrogram(audio).to(model.device)
 
-    def callback(self,msg):
-        bridge = CvBridge()
-        self.oriImg = bridge.imgmsg_to_cv2(msg)
+         _,probs = model.detect_language(mel)
+         print(f"Detected language:{max(probs,key=probs.get)}")
 
-    def humankamo(self):
-        print("humanstart")
-        body_estimation = Body('/home/demulab/dspl_ws/src/hsr/humanpose/src/pytorch-openpose/model/body_pose_model.pth')
-        hand_estimation = Hand('/home/demulab/dspl_ws/src/hsr/humanpose/src/pytorch-openpose/model/hand_pose_model.pth')
-        candidate, subset = body_estimation(self.oriImg)
-        canvas = copy.deepcopy(self.oriImg)
-        canvas,self.msgLR = util.draw_bodypose(canvas, candidate, subset, self.oriImg)
+         options = whisper.DecodingOptions(fp16 = False)
+         result = whisper.decode(model, mel, options)
+         words = result.text.split()
+         matched_words = []
+         print(result.text)
+         '''
+         for word in words:
+             if word.lower() in dictionary:
+                 matched_words.append(word)
 
-    # detect hand
-        hands_list = util.handDetect(candidate, subset, self.oriImg)
+         print("Match:",matched_words)
+         '''
+         if "Cola" in result.text:
+             #foodtext = "Cola"
+             foodlist.append("Cola")
+         elif "cola" in result.text:
+             #foodtext = "Cola"
+             foodlist.append("Cola")
+         elif "コーラ" in result.text:
+             foodlist.append("Cola")
+         if "Tea" in result.text:
+             #foodtext = "Green Tea"
+             foodlist.append("Green Tea")
+         elif "tea" in result.text:
+             foodlist.append("Green Tea")
+         elif "ティー" in result.text:
+             foodlist.append("Green Tea")
+         else:
+             foodlist.append("False")
 
-        all_hand_peaks = []
-        for x, y, w, is_left in hands_list:
-            peaks = hand_estimation(self.oriImg[y:y+w, x:x+w, :])
-            peaks[:, 0] = np.where(peaks[:, 0]==0, peaks[:, 0], peaks[:, 0]+x)
-            peaks[:, 1] = np.where(peaks[:, 1]==0, peaks[:, 1], peaks[:, 1]+y)
-            all_hand_peaks.append(peaks)
+         return foodlist
 
-        canvas = util.draw_handpose(canvas, all_hand_peaks)
+     def voicekana():
+         fod = "String"
+         food.voicefd()
+         fod = food.recognizefd()
 
-        cv2.imshow('human', canvas)
-
-        rospy.sleep(1.0)
-        #print(self.msgLR)
-        return self.msgLR
-
-    def humanposeLR(self):
-        while self.msgLR == "false":
-            rospy.sleep(1.0)
-        return self.msgLR
-<<<<<<< HEAD
-=======
-#humanpose src end
->>>>>>> ad55b5f41972f053965d6ff34cd6d3e5b1285a56
-
-
-
+         return fod

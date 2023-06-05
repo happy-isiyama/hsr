@@ -1,5 +1,6 @@
 <launch>
-
+  <!--arg name="robot" default="hsrb4s" />
+  <param name="robot_description" command="$(find xacro)/xacro '$(find description)/robots/$(arg robot).urdf.xacro'" /-->
   <arg name="robot_name" default="hsrb" />
   <arg name="upload_robot_model_launch" default="$(find hsrb_description)/robots/upload_hsrb.launch" />
   <include file="$(find hsrb_moveit_config)/launch/planning_context.launch" >
