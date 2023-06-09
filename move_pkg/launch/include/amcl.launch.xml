@@ -11,6 +11,6 @@
     <rosparam file="$(find move_pkg)/params/amcl.yaml" command="load" />
   </node>
 
-  <rosparam ns="/location" command="load" file="$(find move_pkg)/location/test3.yaml" />
+  <rosparam ns="/location" command="load" file="$(find move_pkg)/location/demo.yaml" />
 
 </launch>
